@@ -6,7 +6,7 @@ import Skills from "@/components/homePage/Skills";
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-[85%] mx-auto">
       <Navbar />
       <Introduction />
       <Education />

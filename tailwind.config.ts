@@ -11,6 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "nav-bg": "var(--nav-bg)",
+        "primary-color": "var(--primary-color)",
+        "paragraph-color": "var(--paragraph-color)",
+        "secondary-color": "var( --secondary-color)",
       },
     },
   },
