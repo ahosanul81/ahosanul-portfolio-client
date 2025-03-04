@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  SelectProps,
-  Upload,
-  UploadProps,
-} from "antd";
+import { Button, Form, Input, Select, SelectProps, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { toast } from "sonner";
+import { sendImageCloudinary } from "@/utils/sendImageCloudinary";
+import { TBlog } from "@/types/blog.types";
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -29,26 +24,45 @@ const options: SelectProps["options"] = [
 ];
 
 export default function AddBlogPage() {
-  const [imageFile, setImageFile] = useState<any>(null);
+  const [image, setImage] = useState(null);
+  // const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleUploadChange: UploadProps["onChange"] = ({ file }) => {
-    setImageFile(file);
-  };
+  // const handleUploadChange: UploadProps["onChange"] = async ({ file }) => {
+  //   setImageFile(file)
+  // };
   const onFinish = async (values: any) => {
-    setLoading(true);
-    const formData = new FormData();
-    if (imageFile) {
-      formData.append("file", imageFile.originFileObj);
+    console.log(values);
+
+    if (values.blog.image) {
+      const imageUrl = await sendImageCloudinary(values.blog.image.file);
+      setImage(imageUrl);
     }
-    formData.append("blogData", JSON.stringify(values.blog));
+
+    setLoading(true);
+    const blogData: TBlog = {
+      title: values.blog.title,
+      description: values.blog.description,
+      category: values.blog.category,
+    };
+    if (image) {
+      blogData.image = image;
+    } else {
+      blogData.image = "";
+    }
+    console.log(blogData);
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/add-blog`,
       {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(blogData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
+
     const data = await res.json();
 
     console.log(data);
@@ -77,7 +91,7 @@ export default function AddBlogPage() {
         </Form.Item>
         <Form.Item
           initialValue={["technology"]}
-          name={["blog", "categories"]}
+          name={["blog", "category"]}
           label={<span className="text-white font-semibold">Categories</span>}
           rules={[{ required: true }]}
         >
@@ -101,11 +115,11 @@ export default function AddBlogPage() {
           <Input.TextArea />
         </Form.Item>
 
-        <Form.Item label="Upload Image">
+        <Form.Item label="Upload Image" name={["blog", "image"]}>
           <Upload
             action="YOUR_UPLOAD_URL_HERE"
             listType="picture"
-            onChange={handleUploadChange}
+            // onChange={handleUploadChange}
           >
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>

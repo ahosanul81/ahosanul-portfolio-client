@@ -1,7 +1,7 @@
 export type TBlog = {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
-  image: string | null;
+  image?: string | null;
   category: string;
 };

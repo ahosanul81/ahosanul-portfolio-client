@@ -6,12 +6,10 @@ import Link from "next/link";
 import Spinner from "../projects/loading";
 
 const BlogCard = () => {
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/blogs`);
   const { data: blogs, isLoading } = useGetAllBlogsQuery(undefined);
   if (isLoading) {
     return <Spinner />;
   }
-  console.log(blogs);
 
   return (
     <div className="grid grid-cols-3 gap-7 mt-4">
@@ -22,7 +20,7 @@ const BlogCard = () => {
         >
           {blog.image && (
             <Image
-              className="w-full h-48 object-cover"
+              className="w-full object-cover"
               src={blog.image}
               height={300}
               width={500}

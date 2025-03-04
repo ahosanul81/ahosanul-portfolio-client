@@ -3,20 +3,20 @@
 import Button from "@/components/customComponent/Button";
 import Image from "next/image";
 import Link from "next/link";
-// import Link from "next/link";
 
-export default async function page({
+export default async function SingleProject({
   params,
 }: {
-  params: { projectId: string };
-  searchParams: string;
+  params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
-  const res = await fetch(`http://localhost:5000/api/v1/projects/${projectId}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${projectId}`
+  );
   const project = await res.json();
 
   return (
-    <div className="container mx-auto max-w-[80%] px-4 py-10 space-y-6">
+    <div className="container mx-auto max-w-[90%] px-4 py-10 space-y-6">
       {/* Image Section */}
       <div className="w-full max-w-4xl mx-auto">
         {project?.data?.homePageImg && (
@@ -53,28 +53,27 @@ export default async function page({
         </div>
         <div>
           <h1 className="text-gray-300  font-bold text-2xl">Github Links</h1>
-          <ul className="text-white ml-6">
-            <li>
-              Client:
-              <Link
-                className="ml-3 hover:underline"
-                href={project?.data?.githubRepo?.clientSite}
-                target="_blank"
-              >
-                {project?.data?.githubRepo?.clientSite}
-              </Link>
-            </li>
-            <li>
-              Server:
-              <Link
-                className="ml-3 hover:underline"
-                href={project?.data?.githubRepo?.backendSite}
-                target="_blank"
-              >
-                {project?.data?.githubRepo?.backendSite}
-              </Link>
-            </li>
-          </ul>
+
+          <h3 className="text-wrap text-white">
+            Client:
+            <Link
+              className="ml-3 hover:underline"
+              href={project?.data?.githubRepo?.clientSite}
+              target="_blank"
+            >
+              {project?.data?.githubRepo?.clientSite}
+            </Link>
+          </h3>
+          <h3 className="text-wrap text-white">
+            Server:
+            <Link
+              className="ml-3 hover:underline"
+              href={project?.data?.githubRepo?.backendSite}
+              target="_blank"
+            >
+              {project?.data?.githubRepo?.backendSite}
+            </Link>
+          </h3>
         </div>
         <div>
           <h1 className="text-gray-300  font-bold text-2xl">Description</h1>

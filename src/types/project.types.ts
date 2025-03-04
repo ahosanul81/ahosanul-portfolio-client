@@ -6,7 +6,7 @@ export type TProject = {
   liveLink: string;
 };
 export type TProjectDetails = {
-  _id: string;
+  _id?: string;
   projectName: string;
   idea: string;
   homePageImg: string;

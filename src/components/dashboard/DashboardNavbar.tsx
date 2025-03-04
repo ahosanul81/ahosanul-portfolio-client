@@ -7,10 +7,10 @@ const DashboardNavbar = () => {
   const navLinks = (
     <>
       <li>
-        <Link href="/dashboard/add-blog">Add blog</Link>
+        <Link href="/dashboard/blogs">Added Blogs</Link>
       </li>
       <li>
-        <Link href="/dashboard/add-project">Add project</Link>
+        <Link href="/dashboard/projects">Added Project</Link>
       </li>
     </>
   );

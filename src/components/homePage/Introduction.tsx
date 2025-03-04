@@ -5,9 +5,9 @@ import Link from "next/link";
 
 export default function Introduction() {
   return (
-    <main className=" flex justify-between  items-center py-7 bg-[#09101A]">
-      <section className="w-1/2 space-y-12">
-        <h1 className="text-5xl text-white  font-extrabold">
+    <main className="flex flex-col lg:flex-row justify-between  items-center py-7 bg-[#09101A]">
+      <section className="w-full lg:w-1/2 space-y-12">
+        <h1 className="text-3xl lg:text-5xl text-white  font-extrabold">
           Hi, I am Ahosanul! <br /> Web{" "}
           <span className="text-primary-color">Developer</span>
         </h1>
@@ -34,9 +34,9 @@ export default function Introduction() {
           </Link>
         </div>
       </section>
-      <section className="w-1/2 flex justify-end">
+      <section className="w-full lg:w-1/2 flex justify-center lg:justify-end mt-10 lg:mt-0">
         <Image
-          className="object-cover clip-hexagon  border-4 p-2"
+          className="object-cover clip-hexagon  border-4 lg:p-2"
           src={
             "https://res.cloudinary.com/dgs2ywdd6/image/upload/v1723478377/ldz9dfhx3o9mhzx2i4pc.jpg"
           }

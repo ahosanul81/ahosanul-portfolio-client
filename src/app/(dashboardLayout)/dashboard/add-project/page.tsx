@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  SelectProps,
-  Upload,
-  UploadProps,
-} from "antd";
+import { Button, Form, Input, Select, SelectProps, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { toast } from "sonner";
+import { TProjectDetails } from "@/types/project.types";
+import { sendImageCloudinary } from "@/utils/sendImageCloudinary";
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -26,7 +20,7 @@ const validateMessages = {
 };
 
 export default function AddProjectPage() {
-  const [imageFile, setImageFile] = useState<any>(null);
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
   const options: SelectProps["options"] = [
     { value: "html", label: "HTML" },
@@ -36,32 +30,51 @@ export default function AddProjectPage() {
     { value: "next.js", label: "Next.js" },
     { value: "mongodb", label: "MongoDB" },
   ];
-  const handleUploadChange: UploadProps["onChange"] = ({ file }) => {
-    // console.log(file);
 
-    setImageFile(file);
-  };
   const onFinish = async (values: any) => {
-    console.log(values);
+    setLoading(true);
+
+    if (values.project.homePageImg) {
+      const imageUrl = await sendImageCloudinary(
+        values.project.homePageImg.file
+      );
+      setImage(imageUrl);
+    }
 
     setLoading(true);
-    const formData = new FormData();
-
-    if (imageFile) {
-      formData.append("file", imageFile.originFileObj);
+    const projectData: TProjectDetails = {
+      projectName: values.project.projectName,
+      idea: values.project.idea,
+      homePageImg: values.project.homePageImg,
+      technologies: values.project.technologies,
+      features: values.project.features,
+      githubRepo: {
+        clientSite: values.project.clientSite,
+        backendSite: values.project.backendSite,
+      },
+      liveLink: values.project.liveLink,
+      developerNotes: values.project.developerNotes,
+      description: values.project.description,
+    };
+    if (image) {
+      projectData.homePageImg = image;
+    } else {
+      projectData.homePageImg = "";
     }
-    formData.append("projectData", JSON.stringify(values.project));
+    console.log(projectData);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/projects/add-project`,
       {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(projectData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
     const data = await res.json();
 
-    console.log(data);
     if (data?.status === 200) {
       console.log("Project added successfully");
       setLoading(false);
@@ -72,7 +85,7 @@ export default function AddProjectPage() {
   return (
     <div className="bg-secondary-color mx-auto mt-3 py-5">
       <h1 className="text-white font-bold text-4xl text-center mb-4">
-        Add Project{" "}
+        Add Project
       </h1>
       <Form
         {...layout}
@@ -162,12 +175,11 @@ export default function AddProjectPage() {
               Home Page Screenshot
             </span>
           }
-          rules={[{ required: true }]}
+          name={["project", "homePageImg"]}
         >
           <Upload
             // action="YOUR_UPLOAD_URL_HERE"
             listType="picture"
-            onChange={handleUploadChange}
           >
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>

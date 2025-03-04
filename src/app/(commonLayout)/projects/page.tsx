@@ -8,7 +8,7 @@ import Spinner from "./loading";
 
 export default function ProjectPage() {
   const { data: projects, isLoading } = useGetAllProjectsQuery(undefined);
-  console.log(projects);
+
   if (isLoading) {
     return <Spinner />;
   }
