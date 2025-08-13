@@ -93,7 +93,7 @@ export default function Navbar() {
   );
   return (
     <>
-      <nav className="flex justify-between nav-bg items-center text-white">
+      <nav className="flex justify-between nav-bg items-center text-white ">
         <section className=" flex items-center gap-3 rounded-full">
           <Link href={"/"} className="flex items-center gap-4">
             <Image

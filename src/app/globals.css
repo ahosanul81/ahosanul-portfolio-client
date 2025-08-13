@@ -1,20 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "animate.css";
+
+@import "aos/dist/aos.css";
 
 :root {
   --background: #02050a;
   --foreground: #171717;
   --nav-bg: #141c27;
   --primary-color: #55e6a5;
+  --title-color: #af65f5;
   --secondary-color: #09101a;
   --paragraph-color: #09101a;
+  --border-color: #333432;
 }
-@layer utilities {
+/* @layer utilities {
   .clip-hexagon {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   }
-}
+} */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -34,6 +39,7 @@
 }
 
 body {
+  overflow-x: hidden;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -43,4 +49,25 @@ body {
 }
 .primary-color {
   background-color: var(--primary-color);
+}
+
+@keyframes shakeYOffset {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+}
+
+.shakeYOffset {
+  display: inline-block; /* required for transform */
+  animation: shakeYOffset 4s ease-in-out infinite;
 }
