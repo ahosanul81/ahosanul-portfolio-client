@@ -38,7 +38,7 @@ export default function ShimmerButton({ text }: { text: string }) {
             animation: "shimmer-spin 2.5s linear infinite",
           }}
         />
-        <span className="relative z-10 inline-flex items-center justify-center w-full h-full px-4 py-2  text-gray-900 dark:text-white bg-white dark:bg-gray-900 rounded-full group-hover:bg-gray-100 dark:group-hover:bg-gray-800 transition-colors duration-300">
+        <span className="relative z-10 inline-flex items-center justify-center w-full h-full px-4 py-2 text-xs  text-gray-900 dark:text-white bg-white dark:bg-gray-900 rounded-full group-hover:bg-gray-100 dark:group-hover:bg-gray-800 transition-colors duration-300">
           {text}
         </span>
       </button>

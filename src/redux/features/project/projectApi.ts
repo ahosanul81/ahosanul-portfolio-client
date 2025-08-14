@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/baseApi/baseApi";
 
 export const projectApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProjects: builder.query({
+    getAllProjects: builder.query<any, void>({
       query: () => "/projects",
     }),
-    getSingleProjectDetalail: builder.query({
+    getSingleProjectDetail: builder.query<any, string>({
       query: (id) => `/projects/${id}`,
     }),
   }),
 });
 
-export const { useGetAllProjectsQuery } = projectApi;
+// Hooks (optional, for client components)
+export const { useGetAllProjectsQuery, useGetSingleProjectDetailQuery } =
+  projectApi;
