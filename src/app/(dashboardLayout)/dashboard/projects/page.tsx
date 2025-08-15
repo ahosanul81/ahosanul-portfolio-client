@@ -7,7 +7,7 @@ export default function DashBoardProjectsPage() {
   return (
     <div>
       <ProjectPage />
-      <Link href={"/dashboard/add-blog"}>
+      <Link href={"/dashboard/add-project"}>
         <Button
           text="Add Project"
           className="py-4 px-8 mt-5"

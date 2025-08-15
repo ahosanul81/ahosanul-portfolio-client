@@ -3,10 +3,11 @@
 
 import { Button, Form, Input, Select, SelectProps, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { sendImageCloudinary } from "@/utils/sendImageCloudinary";
 import { TBlog } from "@/types/blog.types";
+import Spinner from "@/app/(commonLayout)/projects/loading";
 
 const layout = {
   labelCol: { span: 8 },
@@ -32,8 +33,6 @@ export default function AddBlogPage() {
   //   setImageFile(file)
   // };
   const onFinish = async (values: any) => {
-    console.log(values);
-
     if (values.blog.image) {
       const imageUrl = await sendImageCloudinary(values.blog.image.file);
       setImage(imageUrl);
@@ -50,7 +49,6 @@ export default function AddBlogPage() {
     } else {
       blogData.image = "";
     }
-    console.log(blogData);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/add-blog`,
@@ -65,7 +63,6 @@ export default function AddBlogPage() {
 
     const data = await res.json();
 
-    console.log(data);
     if (data?.status === 200) {
       console.log("Blog added successfully");
       setLoading(false);
@@ -74,65 +71,73 @@ export default function AddBlogPage() {
     }
   };
   return (
-    <div className="bg-secondary-color mx-auto mt-8 py-16">
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-        style={{ maxWidth: 600, margin: "auto" }}
-        validateMessages={validateMessages}
-      >
-        <Form.Item
-          name={["blog", "title"]}
-          label={<span className="text-white font-semibold">Title</span>}
-          rules={[{ required: true }]}
+    <Suspense fallback={<Spinner />}>
+      <div className="bg-secondary-color mx-auto mt-8 py-16">
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onFinish}
+          style={{ maxWidth: 600, margin: "auto" }}
+          validateMessages={validateMessages}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          initialValue={["technology"]}
-          name={["blog", "category"]}
-          label={<span className="text-white font-semibold">Categories</span>}
-          rules={[{ required: true }]}
-        >
-          <Select
-            mode="multiple"
-            //   size={size}
-            placeholder="Please select"
-            //   onChange={handleChange}
-            style={{ width: "100%" }}
-            options={options}
+          <Form.Item
+            name={["blog", "title"]}
+            label={<span className="text-white font-semibold">Title</span>}
+            rules={[{ required: true }]}
           >
-            <Select.Option value="demo">Demo</Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name={["blog", "description"]}
-          label={<span className="text-white font-semibold">Description</span>}
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
-
-        <Form.Item label="Upload Image" name={["blog", "image"]}>
-          <Upload
-            action="YOUR_UPLOAD_URL_HERE"
-            listType="picture"
-            // onChange={handleUploadChange}
+            <Input />
+          </Form.Item>
+          <Form.Item
+            initialValue={["technology"]}
+            name={["blog", "category"]}
+            label={<span className="text-white font-semibold">Categories</span>}
+            rules={[{ required: true }]}
           >
-            <Button icon={<UploadOutlined />}>Upload</Button>
-          </Upload>
-        </Form.Item>
-        <Form.Item label={null}>
-          {/* <Button type="primary" htmlType="submit">
+            <Select
+              mode="multiple"
+              //   size={size}
+              placeholder="Please select"
+              //   onChange={handleChange}
+              style={{ width: "100%" }}
+              options={options}
+            >
+              <Select.Option value="demo">Demo</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name={["blog", "description"]}
+            label={
+              <span className="text-white font-semibold">Description</span>
+            }
+            rules={[{ required: true }]}
+          >
+            <Input.TextArea />
+          </Form.Item>
+
+          <Form.Item
+            label="Upload Image"
+            name={["blog", "image"]}
+            valuePropName="fileList"
+          >
+            <Upload
+              action="YOUR_UPLOAD_URL_HERE"
+              listType="picture"
+              // onChange={handleUploadChange}
+            >
+              <Button icon={<UploadOutlined />}>Upload</Button>
+            </Upload>
+          </Form.Item>
+          <Form.Item label={null}>
+            {/* <Button type="primary" htmlType="submit">
             Submit
           </Button> */}
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Post
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              Post
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </Suspense>
   );
 }

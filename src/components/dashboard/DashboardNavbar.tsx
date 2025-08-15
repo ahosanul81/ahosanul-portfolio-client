@@ -7,10 +7,10 @@ const DashboardNavbar = () => {
   const navLinks = (
     <>
       <li>
-        <Link href="/dashboard/blogs">Added Blogs</Link>
+        <Link href="/dashboard/blogs">Adde Blogs</Link>
       </li>
       <li>
-        <Link href="/dashboard/projects">Added Project</Link>
+        <Link href="/dashboard/projects">Adde Project</Link>
       </li>
     </>
   );
@@ -28,7 +28,7 @@ const DashboardNavbar = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex items-center gap-4">{navLinks}</ul>
+            <ul className="flex items-center gap-4 text-black">{navLinks}</ul>
           </div>
 
           {/* Search Bar */}
