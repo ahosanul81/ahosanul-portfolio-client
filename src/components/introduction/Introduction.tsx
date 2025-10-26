@@ -15,7 +15,7 @@ export default function Introduction() {
           Hi, This is Ahosanul! <br /> Web{" "}
           <span className="text-primary-color">Developer</span>
         </h1>
-        <p className="animate__animated animate__slideInDown text-[#A2A2A2] text-justify">
+        <p className="animate__animated animate__slideInDown text-[#A2A2A2] ">
           I am a dedicated front-end developer with expertise in HTML5, CSS3,
           JavaScript, React, Next.js and responsive design. I focus on creating
           visually appealing, user-friendly, and high-performance websites that

@@ -4,11 +4,14 @@ import { Suspense } from "react";
 import Spinner from "../loading";
 import { project } from "@/services/project";
 import { TProjectDetails } from "@/types/project.types";
-import { Metadata } from "next";
-type Params = { params: { slug: string } };
+import type { Metadata } from "next";
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const projectDetail = await project.getProjectDetails(params.slug);
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const slug = (await params).slug;
+  const projectDetail = await project.getProjectDetails(slug);
   const { title, coverImage, shortDescription }: TProjectDetails =
     projectDetail.data;
   if (!projectDetail?.data) {
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     openGraph: {
       title: title,
       description: shortDescription,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${params.slug}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${slug}`,
       images: [
         {
           url: coverImage as string,

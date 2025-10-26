@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form, Select } from "antd";
 import { useEffect } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
@@ -8,6 +9,7 @@ type TLabel = {
   options: TOptions[] | undefined;
   disabled?: boolean;
   mode?: "multiple" | undefined;
+  onValueChange?: (value: any) => void;
 };
 export default function AhSelectWithWatch({
   label,
@@ -23,8 +25,10 @@ export default function AhSelectWithWatch({
     name,
   });
   useEffect(() => {
-    onValueChange(inputValue);
-  }, [inputValue]);
+    if (onValueChange) {
+      onValueChange(inputValue);
+    }
+  }, [inputValue, onValueChange]);
 
   return (
     <Controller

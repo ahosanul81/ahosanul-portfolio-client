@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Suspense, useState } from "react";
@@ -47,43 +46,6 @@ export default function AddProjectPage() {
           <AddTechs />
         </div>
         <div className="mt-6">
-          {/* <Form
-            {...layout}
-            name="nest-messages"
-            // onFinish={onFinish}
-            style={{ maxWidth: 600, margin: "auto" }}
-            validateMessages={validateMessages}
-          >
-            <Form.Item
-              name={["project", "projectName"]}
-              label={
-                <span className="text-white font-semibold">Project Name</span>
-              }
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              initialValue={["html", "css", "javascript"]}
-              name={["project", "technologies"]}
-              label={
-                <span className="text-white font-semibold">Technologies</span>
-              }
-              rules={[{ required: true }]}
-            >
-              <Select
-                mode="multiple"
-                //   size={size}
-                placeholder="Please select"
-                //   onChange={handleChange}
-                style={{ width: "100%" }}
-                // options={options}
-              >
-                <Select.Option value="demo">Demo</Select.Option>
-              </Select>
-            </Form.Item>
-          </Form> */}
           <AddProjectInfo setAddProjectInfo={setAddProjectInfo} />
           <TextEditor setContent={setContent} />
           <button type="submit" onClick={handleSubmit}>

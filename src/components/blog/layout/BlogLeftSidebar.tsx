@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AppstoreOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import React from "react";
