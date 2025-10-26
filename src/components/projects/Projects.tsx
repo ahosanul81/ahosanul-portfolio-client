@@ -31,35 +31,42 @@ export default function Projects({ projects }: { projects: TProject[] }) {
               viewport={{ once: true, amount: 0.3 }}
             >
               <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300">
-                {project.homePageImg && (
+                {project.coverImage && (
                   <Image
-                    src={project.homePageImg}
-                    alt={project.projectName}
+                    src={project.coverImage}
+                    alt={project.title}
                     width={400}
                     height={300}
                     className="w-full h-56 object-cover"
                   />
                 )}
                 <div className="p-4 space-y-4">
-                  <div>
-                    <h3 className="text-xl font-semibold">
-                      {project.projectName}
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-white">
+                      {project.title}
                     </h3>
-                    <p className="">{project.idea}</p>
+                    <button
+                      className="px-3 py-1 text-sm font-medium text-purple-200 bg-gradient-to-r 
+                 from-purple-700 to-purple-500 border border-purple-400 
+                 rounded-lg shadow-md hover:shadow-lg hover:scale-105 
+                 transition-all duration-200"
+                    >
+                      {project.categoryId.categoryName}
+                    </button>
+                    <p>{project.shortDescription}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <button className="px-2 bg-green-600 rounded-lg text-white">
-                      React
-                    </button>
-                    <button className="px-2 bg-green-600 rounded-lg text-white">
-                      React
-                    </button>
-                    <button className="px-2 bg-green-600 rounded-lg text-white">
-                      React
-                    </button>
-                    <button className="px-2 bg-green-600 rounded-lg text-white">
-                      React
-                    </button>
+                    {project &&
+                      project.technologies.map(
+                        (tech: string, index: number) => (
+                          <button
+                            key={index}
+                            className="px-2 bg-green-600 rounded-lg text-white capitalize"
+                          >
+                            {tech}
+                          </button>
+                        )
+                      )}
                   </div>
 
                   <div className="flex items-center gap-5">
@@ -71,7 +78,7 @@ export default function Projects({ projects }: { projects: TProject[] }) {
                         Live Site View
                       </button>
                     </Link>
-                    <Link href={`/projects/${project._id}`}>
+                    <Link href={`/projects/${project.slug}`}>
                       <button
                         type="button"
                         className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"

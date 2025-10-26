@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(commonLayout)/projects/[projectId]",
+    "src/app/(commonLayout)/projects/[slug]",
     ".next/types/app/blogs/page.tsx"
   ],
   "exclude": ["node_modules"]

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { GoPlus } from "react-icons/go";
 
-export default function DashBoardBlogsPage() {
+export default async function DashBoardBlogsPage() {
   return (
     <Suspense fallback={<Spinner />}>
       <div>
