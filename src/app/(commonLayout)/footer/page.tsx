@@ -48,24 +48,30 @@ export default async function FooterPage() {
             </h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#home" className="hover:text-blue-400 transition">
+                <Link href="/" className="hover:text-blue-400 transition">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#projects" className="hover:text-blue-400 transition">
+                <Link
+                  href="#projects"
+                  className="hover:text-blue-400 transition"
+                >
                   Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#about" className="hover:text-blue-400 transition">
+                <Link href="#about" className="hover:text-blue-400 transition">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-blue-400 transition">
+                <Link
+                  href="#contact"
+                  className="hover:text-blue-400 transition"
+                >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

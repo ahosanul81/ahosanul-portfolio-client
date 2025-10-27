@@ -5,7 +5,7 @@ import Animate from "../customComponent/Animate";
 
 export default async function About() {
   return (
-    <div className="space-y-3">
+    <div id="about" className="space-y-3">
       <h1 className="text-primary-color font-bold text-4xl text-center">
         About Me
       </h1>

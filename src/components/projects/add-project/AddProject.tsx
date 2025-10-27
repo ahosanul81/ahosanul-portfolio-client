@@ -4,21 +4,23 @@ import { Suspense, useState } from "react";
 import Spinner from "@/app/(commonLayout)/projects/loading";
 import AddCategory from "./AddCategory";
 import AddTechs from "./AddTechs";
-import AddProjectInfo from "./AddProjectInfo";
+
 import TextEditor from "@/components/customComponent/editor/TextEditor";
 import { project } from "@/services/project";
+import { TAddProject } from "@/types/project.types";
+import ReviewProject from "./ReviewProject";
+import dynamic from "next/dynamic";
+import AddProjectInfo from "./AddProjectInfo";
 
 export default function AddProjectPage() {
-  const [addProjectInfo, setAddProjectInfo] = useState<{
-    title: string;
-    coverImage: File;
-    shortDescription: string;
-    technologies: string;
-    categoryId: string;
-    liveLink: string;
-  }>();
+  dynamic(() => import("@/components/projects/add-project/ReviewProject"), {
+    ssr: false,
+  });
+
+  const [addProjectInfo, setAddProjectInfo] = useState<TAddProject>();
   const [content, setContent] = useState<string>("");
   // console.log(addProjectInfo, content);
+
   const handleSubmit = async () => {
     const projectObj = {
       title: addProjectInfo?.title,
@@ -34,9 +36,15 @@ export default function AddProjectPage() {
     const projectData = await project.addProject(projectObj);
     console.log(projectData);
   };
+
   return (
     <Suspense fallback={<Spinner />}>
       <div className="bg-secondary-color mx-auto mt-3 py-5">
+        {/* Review Project */}
+        {addProjectInfo || content ? (
+          <ReviewProject addProjectInfo={addProjectInfo} content={content} />
+        ) : null}
+        {/* add project */}
         <h1 className="text-white font-bold text-4xl text-center mb-4">
           Add Project
         </h1>
@@ -48,9 +56,15 @@ export default function AddProjectPage() {
         <div className="mt-6">
           <AddProjectInfo setAddProjectInfo={setAddProjectInfo} />
           <TextEditor setContent={setContent} />
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="bg-purple-400 text-white rounded-md px-4 py-2"
+            >
+              Submit Project
+            </button>
+          </div>
         </div>
       </div>
     </Suspense>

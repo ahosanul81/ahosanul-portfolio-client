@@ -31,9 +31,9 @@ export default function Navbar() {
             : ""
         }
       >
-        <Link href="/">About</Link>
+        <Link href="#about">About</Link>
       </li>
-      <li
+      {/* <li
         className={
           pathName === "/services"
             ? "border-l-2 pl-2 lg:p-0 lg:border-b-2 lg:border-l-0"
@@ -41,7 +41,7 @@ export default function Navbar() {
         }
       >
         <Link href="/">Services</Link>
-      </li>
+      </li> */}
       <li
         className={
           pathName === "/projects"
@@ -67,7 +67,7 @@ export default function Navbar() {
             : ""
         }
       >
-        <Link href="/contact">Contact</Link>
+        <Link href="#contact">Contact</Link>
       </li>
       {adminInfo?.data?.map(
         (elem: {

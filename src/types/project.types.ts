@@ -24,7 +24,6 @@ export type TCategory = {
 export type TContent = {
   _id: string;
   content: string;
-  __v: number;
 };
 
 export type TProjectDetails = {
@@ -37,7 +36,19 @@ export type TProjectDetails = {
   categoryId: TCategory;
   liveLink: string;
   contentId: TContent;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+};
+
+// add Project
+
+export type TAddProject = {
+  title: string;
+  coverImage: File[];
+  shortDescription: string;
+  technologies: string;
+  categoryId: string;
+  liveLink: string;
+  content?: string;
 };

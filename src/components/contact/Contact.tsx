@@ -2,7 +2,7 @@ import ContactForm from "./ContactForm";
 
 const Contact = async () => {
   return (
-    <>
+    <div id="contact">
       <h1 className="text-center text-green-400 text-3xl font-bold">
         Contact Me
       </h1>
@@ -73,7 +73,7 @@ const Contact = async () => {
           <ContactForm />
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
