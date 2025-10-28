@@ -9,14 +9,10 @@ import TextEditor from "@/components/customComponent/editor/TextEditor";
 import { project } from "@/services/project";
 import { TAddProject } from "@/types/project.types";
 import ReviewProject from "./ReviewProject";
-import dynamic from "next/dynamic";
+
 import AddProjectInfo from "./AddProjectInfo";
 
 export default function AddProjectPage() {
-  dynamic(() => import("@/components/projects/add-project/ReviewProject"), {
-    ssr: false,
-  });
-
   const [addProjectInfo, setAddProjectInfo] = useState<TAddProject>();
   const [content, setContent] = useState<string>("");
   // console.log(addProjectInfo, content);

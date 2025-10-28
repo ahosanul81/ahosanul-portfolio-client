@@ -65,6 +65,7 @@ const addProject = async (project: any) => {
 };
 
 // GET
+
 const getAllCategory = async () => {
   try {
     const res = await fetch(
@@ -125,6 +126,23 @@ const getProjectDetails = async (slug: string) => {
     return Error(error);
   }
 };
+const getAllProjects = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await res.json();
+
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    return Error(error);
+  }
+};
 
 export const project = {
   // POST
@@ -135,4 +153,5 @@ export const project = {
   getAllCategory,
   getAllTechnologies,
   getProjectDetails,
+  getAllProjects,
 };

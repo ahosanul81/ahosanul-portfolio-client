@@ -12,10 +12,11 @@ const BlogCard = async () => {
     <Suspense fallback={<Spinner />}>
       <div className="grid grid-cols-2 gap-4">
         {blogs &&
+          Array.isArray(blogs.data) &&
           blogs.data?.map((blog: TBlog) => (
             <div key={blog._id}>
               <Link
-                href={`/blogs/${blog.titleId.categoryId.category}/${blog.titleId.slug}/${blog._id}`}
+                href={`/blogs/${blog?.titleId?.categoryId?.category}/${blog?.titleId?.slug}/${blog?._id}`}
               >
                 <div className="max-w-sm bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg hover:-translate-y-1 transition transform duration-200">
                   {/* Image */}
