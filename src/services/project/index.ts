@@ -127,14 +127,19 @@ const getProjectDetails = async (slug: string) => {
   }
 };
 const getAllProjects = async () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  if (!baseUrl) {
+    console.error("Missing NEXT_PUBLIC_BASE_URL");
+    return [];
+  }
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects`, {
+    const res = await fetch(`${baseUrl}/projects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
+    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
     const result = await res.json();
 
     return result;

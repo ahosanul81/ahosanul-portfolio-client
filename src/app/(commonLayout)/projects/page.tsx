@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 export default async function ProjectPage() {
   const projects = await project.getAllProjects();
-
+  console.log(project);
   return (
     <Projects projects={Array.isArray(projects.data) ? projects.data : []} />
   );
